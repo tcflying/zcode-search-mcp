@@ -105,7 +105,7 @@ codex mcp list
 
 ## 3. MiniMax Code
 
-**配置文件**：`~/.minimax/mcp/mcp.json` → `mcpServers`，与现有条目并列添加：
+**配置文件（主配置，桌面版 MCP 面板读这份）**：`~/.minimax/mcp.json` → `mcpServers`，与现有条目并列添加：
 
 ```json
 {
@@ -117,7 +117,6 @@ codex mcp list
         "Authorization": "Bearer YOUR_API_KEY"
       },
       "enabled": true,
-      "configured": true,
       "description": "BigModel web-search-prime MCP: live web search"
     }
   }
@@ -126,7 +125,8 @@ codex mcp list
 
 要点：
 
-- MiniMax Code 的配置校验器对 `streamable-http` 类型只接受 `transport`/`type`、`url`、`headers`、`enabled`、`timeoutMs`、`description` 这几个字段，非 stdio 传输会读取 `headers` 做认证
+- MiniMax Code 的字段白名单：`transport`/`type`、`command`/`args`/`env`（stdio）或 `url`/`headers`（http/sse）、`enabled`、`timeoutMs`、`description`。**不要写 `configured`、`builtin` 这类额外字段**，`timeout` 要写成 `timeoutMs`
+- `~/.minimax/mcp/mcp.json` 是**旧版兼容路径**：桌面版 MCP 面板**不列它**（只用于兼容旧工具），新配置一律写主配置 `~/.minimax/mcp.json`
 - 没有可热测的 MCP CLI，**下次启动 MiniMax Code 生效**，在应用内的 MCP 管理界面确认连接状态
 
 ---
